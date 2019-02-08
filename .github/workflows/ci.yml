@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        brew install wren wren-cli
+
+    - name: Check code style and prohibited characters
+      run: |
+        ./tools/lint_em_dashes.sh
+
+    - name: Run test suite
+      run: |
+        make test

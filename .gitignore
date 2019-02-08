@@ -1,0 +1,36 @@
+# Build artifacts
+build/
+bin/
+*.o
+*.a
+*.so
+*.dylib
+*.out
+*.dSYM/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+Makefile.old
+
+# Data and logs
+data/
+*.wal
+*.log
+*.snapshot
+
+# Python virtual environment and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.egg-info/
+dist/
+.pytest_cache/
+
+# OS and Editor artifacts
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
