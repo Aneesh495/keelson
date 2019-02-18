@@ -11,7 +11,7 @@ class HeapNode {
   item { _item }
   priority { _priority }
 
-  toString { "HeapNode(priority: %(_priority), item: %(_item))" }
+  toString { "HeapNode(priority: " + _priority.toString + ", item: " + _item.toString + ")" }
 }
 
 class PriorityQueue {
@@ -27,7 +27,7 @@ class PriorityQueue {
   push(item, priority) {
     var node = HeapNode.new(item, priority)
     _heap.add(node)
-    _siftUp(_heap.count - 1)
+    siftUp(_heap.count - 1)
   }
 
   // Returns the item with the lowest priority value without removing it.
@@ -51,7 +51,7 @@ class PriorityQueue {
     var last = _heap.removeAt(-1)
     if (_heap.count > 0) {
       _heap[0] = last
-      _siftDown(0)
+      siftDown(0)
     }
     return top
   }
@@ -62,17 +62,17 @@ class PriorityQueue {
   }
 
   // Internal helper to restore min-heap invariant upward.
-  _siftUp(index) {
+  siftUp(index) {
     var parent = ((index - 1) / 2).floor
     while (index > 0 && _heap[index].priority < _heap[parent].priority) {
-      _swap(index, parent)
+      swapElements(index, parent)
       index = parent
       parent = ((index - 1) / 2).floor
     }
   }
 
   // Internal helper to restore min-heap invariant downward.
-  _siftDown(index) {
+  siftDown(index) {
     var length = _heap.count
     while (true) {
       var smallest = index
@@ -87,7 +87,7 @@ class PriorityQueue {
       }
 
       if (smallest != index) {
-        _swap(index, smallest)
+        swapElements(index, smallest)
         index = smallest
       } else {
         break
@@ -95,7 +95,7 @@ class PriorityQueue {
     }
   }
 
-  _swap(i, j) {
+  swapElements(i, j) {
     var temp = _heap[i]
     _heap[i] = _heap[j]
     _heap[j] = temp
