@@ -13,7 +13,7 @@ all: build
 build: $(BIN)
 
 $(BIN): $(SRC_C)
-	@mkdir -p bin
+	@mkdir -p bin data/wal data/test_wal
 	@if [ -d "src/c" ] && [ -n "$$(ls -A src/c/*.c 2>/dev/null)" ]; then \
 		$(CC) $(CFLAGS) -o $(BIN) $(SRC_C) -lwren 2>/dev/null || \
 		$(CC) $(CFLAGS) -o $(BIN) $(SRC_C) -I/opt/homebrew/include -L/opt/homebrew/lib -lwren 2>/dev/null || \
@@ -24,6 +24,7 @@ lint:
 	@./tools/lint_em_dashes.sh
 
 test: lint
+	@mkdir -p data/wal data/test_wal
 	@echo "Running Wren test suite..."
 	@$(WREN_CLI) test/test_runner.wren
 
@@ -31,4 +32,4 @@ run-example:
 	@$(WREN_CLI) examples/e_commerce_order_saga.wren
 
 clean:
-	rm -rf bin build *.o
+	rm -rf bin build *.o data/test_wal
