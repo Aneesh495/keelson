@@ -118,17 +118,17 @@ class FiberPool {
     task.markRunning()
 
     // Resume the fiber and isolate any runtime faults
-    var err = task.fiber.try()
+    var res = task.fiber.try()
 
-    if (err != null) {
-      task.markFailed(err)
+    if (task.fiber.error != null) {
+      task.markFailed(task.fiber.error)
       _failedCount = _failedCount + 1
       _activeTask = null
       return true
     }
 
     if (task.fiber.isDone) {
-      task.markCompleted(null)
+      task.markCompleted(res)
       _completedCount = _completedCount + 1
       _activeTask = null
       return true
@@ -152,11 +152,11 @@ class FiberPool {
 
   // Cooperatively yields execution from the currently active fiber.
   static yield() {
-    Fiber.yield()
+    return Fiber.yield()
   }
 
   // Cooperatively yields with a value payload.
   static yieldValue(val) {
-    Fiber.yield(val)
+    return Fiber.yield(val)
   }
 }
