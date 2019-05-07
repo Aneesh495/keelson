@@ -16,6 +16,12 @@ class MemoryLogStorage {
     return _logs[workflowId]
   }
 
+  // Appends a single history event to the in-memory log.
+  appendEvent(event) {
+    var log = getOrCreate(event.workflowId)
+    log.addRestoredEvent(event)
+  }
+
   has(workflowId) {
     return _logs.containsKey(workflowId)
   }
