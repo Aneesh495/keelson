@@ -150,8 +150,14 @@ class Workflow {
       "signalName": signalName
     }
 
-    var signalPayload = FiberPool.yieldValue(yieldPayload)
-    return signalPayload
+    FiberPool.yieldValue(yieldPayload)
+
+    // Check mailbox again after resumption
+    if (_signalMailbox.containsKey(signalName) && _signalMailbox[signalName].count > 0) {
+      return _signalMailbox[signalName].removeAt(0)
+    }
+
+    return null
   }
 
   // Queries an exposed state variable. Read-only and non-mutating.
