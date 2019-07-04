@@ -15,6 +15,7 @@ class FiberTask {
     _error = null
     _createdAt = 0
     _yieldCount = 0
+    _yieldValue = null
   }
 
   id { _id }
@@ -25,6 +26,7 @@ class FiberTask {
   result { _result }
   error { _error }
   yieldCount { _yieldCount }
+  yieldValue { _yieldValue }
 
   isDone { _state == "COMPLETED" || _state == "FAILED" || _state == "CANCELLED" }
 
@@ -32,8 +34,9 @@ class FiberTask {
     _state = "RUNNING"
   }
 
-  markSuspended() {
+  markSuspended(val) {
     _state = "SUSPENDED"
+    _yieldValue = val
     _yieldCount = _yieldCount + 1
   }
 
@@ -135,7 +138,7 @@ class FiberPool {
     }
 
     // Fiber yielded cooperatively
-    task.markSuspended()
+    task.markSuspended(res)
     _activeTask = null
     return true
   }
