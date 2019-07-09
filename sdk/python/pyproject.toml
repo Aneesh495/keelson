@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "keelson-sdk"
+version = "1.0.0"
+description = "Python client SDK for the Keelson durable execution engine"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "Aneesh Krishna", email = "aneesh@example.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX",
+    "Topic :: Software Development :: Libraries"
+]
+dependencies = [
+    "urllib3>=1.26.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["keelson*"]
