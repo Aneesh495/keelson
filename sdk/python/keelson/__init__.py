@@ -4,6 +4,13 @@ Client library for communicating with the Keelson durable execution engine daemo
 """
 
 from keelson.version import __version__
+from keelson.exceptions import (
+    KeelsonError,
+    KeelsonConnectionError,
+    KeelsonAPIError,
+    WorkflowNotFoundError,
+    WorkflowExecutionError,
+)
 from keelson.models import (
     WorkflowStatus,
     WorkflowInstance,
@@ -13,9 +20,16 @@ from keelson.models import (
     QueryResponse,
     EngineHealth,
 )
+from keelson.client import KeelsonClient
 
 __all__ = [
     "__version__",
+    "KeelsonClient",
+    "KeelsonError",
+    "KeelsonConnectionError",
+    "KeelsonAPIError",
+    "WorkflowNotFoundError",
+    "WorkflowExecutionError",
     "WorkflowStatus",
     "WorkflowInstance",
     "EventRecord",
