@@ -21,10 +21,12 @@ from keelson.models import (
     EngineHealth,
 )
 from keelson.client import KeelsonClient
+from keelson.testing import MockKeelsonClient
 
 __all__ = [
     "__version__",
     "KeelsonClient",
+    "MockKeelsonClient",
     "KeelsonError",
     "KeelsonConnectionError",
     "KeelsonAPIError",
