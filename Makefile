@@ -7,7 +7,7 @@ SRC_C = $(wildcard src/c/*.c)
 OBJ_C = $(SRC_C:.c=.o)
 BIN = bin/keelson
 
-.PHONY: all build test test-c test-wren lint clean run-example
+.PHONY: all build test test-c test-wren test-python lint clean run-example
 
 all: build
 
@@ -20,12 +20,16 @@ $(BIN): $(SRC_C)
 lint:
 	@./tools/lint_em_dashes.sh
 
-test: build lint test-wren
+test: build lint test-wren test-python
 
 test-wren:
 	@mkdir -p data/wal data/test_wal
 	@echo "Running Wren test suite via native host..."
 	@./$(BIN) test
+
+test-python:
+	@echo "Running Python SDK test suite..."
+	@cd sdk/python && python3 -m unittest discover tests
 
 test-cli:
 	@mkdir -p data/wal data/test_wal
